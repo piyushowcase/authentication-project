@@ -32,9 +32,12 @@ const onSubmitHandler=async(e)=>{
         if(state==='Sign Up'){
             const { data } = await axios.post(backendUrl+"/api/auth/register",{name,email,password});
         
+    console.log("kkkk")
          if(data.success){
             setIsLoggedin(true);
             getUserData()
+            
+    console.log("kkkk")
             navigate('/');
         }
             else{
@@ -45,10 +48,17 @@ const onSubmitHandler=async(e)=>{
         else{
             const { data } = await axios.post(backendUrl+"/api/auth/login",{email,password});
         
+  
         if(data.success){
+   
             setIsLoggedin(true);
+            
             getUserData()
+            
+  
             navigate('/');
+            
+
         }
         else{
             toast.error(data.message);
@@ -56,6 +66,8 @@ const onSubmitHandler=async(e)=>{
     }
     }
      catch (error) {
+        
+
         toast.error(error.response?.data?.message || error.message)
     }
 }
@@ -80,14 +92,14 @@ const onSubmitHandler=async(e)=>{
                 
                 <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
                         <img  src={mail_icon} alt="" />
-                        <input onChange={e=>setEmail(e.target.value)} autoComplete="email"
+                        <input onChange={e=>setEmail(e.target.value)} 
                         type='email' value={email} className="bg-transparent outline-none w-full"  placeholder="Email Id" required /></div>
 
 
             
                 <div className='mb-4 flex w-full items-center gap-3 rounded-full bg-[#333A5C] px-5 py-2.5'>
                         <img src={lock_icon} alt="" className='h-5 w-5 shrink-0' />
-                        <input onChange={e=>setPassword(e.target.value) } autoComplete="passward" value={password} className='min-w-0 flex-1 bg-transparent text-white outline-none' type={showPassword ? "text" : "password"} placeholder="password" required />
+                        <input onChange={e=>setPassword(e.target.value) }  value={password} className='min-w-0 flex-1 bg-transparent text-white outline-none' type={showPassword ? "text" : "password"} placeholder="password" required />
                         <button type="button" onClick={togglePasswordVisibility} className="shrink-0 text-xs text-indigo-200">
                             {showPassword ? "Hide" : "Show"}
                         </button>

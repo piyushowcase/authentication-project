@@ -111,7 +111,6 @@ if (otpArray.length !== 6) {
           maxLength='1'
           key={index}
           required
-         
           className='w-12  h-12 bg-[#333A5C] text-white text-center text-xl rounded-md'
         ref={(el) => (inputRefs.current[index] = el)}
         onInput={(e) => {handleInput(e, index)}}

@@ -11,22 +11,26 @@ export const AppContextProvider=(props)=>{
 
     const getAuthState = async () => {
         try {
-            const { data } = await axios.get(`${backendUrl}/api/auth/is-authenticated`, { withCredentials: true })
+            const { data } = await axios.get(backendUrl+'/api/user/data')
             if (data.success) {
                 setIsLoggedin(true)
                 setUserData(data.user)
             } else {
                 setIsLoggedin(false)
                 setUserData(null)
-                toast.error(data.message || 'Authentication failed')
+                
+  
+                toast.error( 'Authentication failed')
             }
         } catch (error) {
             setIsLoggedin(false)
             setUserData(null)
             if (error?.response?.status !== 401) {
+                return;
+            }
         toast.error(
-            error?.response?.data?.message || error?.message || 'Something went wrong'
-        )}
+           error?.response?.data?.message || error?.message ||  'Something went wrong'
+        )
             // toast.error(error?.response?.data?.message || error?.message || 'Something went wrong')
         }
     }
@@ -37,11 +41,16 @@ export const AppContextProvider=(props)=>{
 
     const getUserData = async () => {
         try {
-            const { data } = await axios.get(`${backendUrl}/api/user/data`, { withCredentials: true })
+            
+
+      const { data } = await axios.get(backendUrl+'/api/user/data');
+      
             if (data.success) {
                 setUserData(data.userData)
+                
             } else {
                 setUserData(null)
+                
                 toast.error(data.message || 'User data not found')
             }
         } catch (error) {
